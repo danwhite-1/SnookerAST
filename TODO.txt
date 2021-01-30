@@ -1,0 +1,7 @@
+* Set up for Version Control
+* Split into header and src files
+
+* Pass actual urls to getRequest()
+* Set up getAST() though py API
+
+* Investigate cPyInstance from PyHelper.hpp
