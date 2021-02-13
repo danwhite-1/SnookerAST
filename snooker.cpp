@@ -1,27 +1,41 @@
+#include </home/daniel/Documents/snookerAST/snooker.h>
 #include <iostream>
-//#include <python3.6m/pyhelper.hpp>
 #include <python3.6m/Python.h>
 
-int main()
+
+snooker::snooker()
 {
+	//Constructor -- turn into namespace??
+}
+
+snooker::~snooker()
+{
+	//Destructor	
+}
+
+
+std::string snooker::getItemFromJSON(const char* data, const char* item)
+{
+	//std::cout << "snooker::getItemFromJSON data = " << data << "item = " << item << std::endl;
 	Py_Initialize();
 
-	PyObject *pName, *pModule;	
+	PyObject *pName, *pModule, *pValue;	
 
-	//In order for import to work $PYTHONPATH = directory of file you want
-	//Pass in "snooker" as argv[1] when executing
 	pName = PyUnicode_FromString("snooker");
 	pModule = PyImport_Import(pName);
 
 	if ( pModule )
 	{
-		PyObject* pFunc = PyObject_GetAttrString(pModule, "getRequest");
+		PyObject* pFunc = PyObject_GetAttrString(pModule, "getItemFromJSON");
 		if ( pFunc && PyCallable_Check(pFunc) )
 		{
-			PyObject* tup = PyTuple_New(1);
-			PyTuple_SetItem(tup, 0, PyUnicode_FromString("url"));
-			PyObject* pValue = PyObject_CallObject(pFunc, tup);
-			std::cout << "getRequest = " << PyUnicode_AsUTF8(pValue) << std::endl;
+			PyObject* tup = PyTuple_New(2);	
+			PyTuple_SetItem(tup, 0, PyUnicode_FromString(data));
+			PyTuple_SetItem(tup, 1, PyUnicode_FromString(item));
+			pValue = PyObject_CallObject(pFunc, tup);
+			std::string cValue = PyUnicode_AsUTF8(pValue);
+			Py_Finalize();
+			return cValue.c_str();
 		}
 		else
 		{
@@ -38,7 +52,51 @@ int main()
 	PyErr_PrintEx(0);
 	Py_Finalize();
 
-	std::cout << std::endl;
+	return "Well, Shit";
+}
 
-	return 0;
+std::string snooker::getDataFromAPI(const char* url)
+{
+	//std::string url = "http://api.snooker.org/?e=398";
+	Py_Initialize();
+
+	PyObject *pName, *pModule, *pValue;	
+
+	//In order for import to work $PYTHONPATH = directory of file you want
+	//Pass in "snooker" as argv[1] when executing
+	pName = PyUnicode_FromString("snooker");
+	pModule = PyImport_Import(pName);
+
+	if ( pModule )
+	{
+		PyObject* pFunc = PyObject_GetAttrString(pModule, "getRequest");
+		if ( pFunc && PyCallable_Check(pFunc) )
+		{
+			PyObject* tup = PyTuple_New(1);
+			PyObject* py_url = PyUnicode_FromString(url);
+			PyTuple_SetItem(tup, 0, py_url);
+			pValue = PyObject_CallObject(pFunc, tup);
+			std::string cValue = PyUnicode_AsUTF8(pValue);
+			cValue = cValue.substr(1,cValue.length() - 2);
+			Py_Finalize();
+			//std::cout << cValue.c_str();
+			//return "Hello";
+			return cValue;
+		}
+		else
+		{
+			std::cout << "Something gone wrong";
+			PyErr_PrintEx(0);
+		}
+	}
+	else
+	{
+		std::cout << "Something else went wrong";
+		PyErr_PrintEx(0);
+	}
+	
+	PyErr_PrintEx(0);
+	Py_Finalize();
+
+	return "Well, shit";
 }

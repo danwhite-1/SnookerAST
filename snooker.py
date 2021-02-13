@@ -7,8 +7,10 @@ import json
 
 def getRequest(param):
     #Making the request
-    url = "http://api.snooker.org/?e=398"
-    res = requests.get(url)
+    #url = "http://api.snooker.org/?e=397&r=1&n=5"
+    #res = param;
+    #return param;
+    res = requests.get(param)
 
     resList = []
 
@@ -20,4 +22,11 @@ def getRequest(param):
     resList.pop(-1)
 
     return res.text;
-    return json.loads("".join(resList))
+
+def getItemFromJSON(JSON, item): 
+    dataJSON = json.loads(JSON)
+    if dataJSON[item]:
+        return dataJSON[item];
+    else:
+        return "Item not in JSON"
+    return JSON
