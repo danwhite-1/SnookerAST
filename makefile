@@ -1,6 +1,3 @@
-# Setting $PYTHONPATH
-export PYTHONPATH=/home/daniel/Documents/snookerAST/
-
 # Object files to either reference or create                          
 OBJECTS =  main.cpp snooker.cpp         
 

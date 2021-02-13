@@ -1,7 +1,5 @@
 #include </home/daniel/Documents/snookerAST/snooker.h>
 #include <iostream>
-#include <python3.6m/Python.h>
-
 
 snooker::snooker()
 {
@@ -14,9 +12,9 @@ snooker::~snooker()
 }
 
 
-std::string snooker::getItemFromJSON(const char* data, const char* item)
+std::string snooker::getItemFromJSON(std::string _data, const char* item)
 {
-	//std::cout << "snooker::getItemFromJSON data = " << data << "item = " << item << std::endl;
+	const char* data = _data.c_str();
 	Py_Initialize();
 
 	PyObject *pName, *pModule, *pValue;	
