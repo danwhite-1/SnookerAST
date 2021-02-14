@@ -2,7 +2,7 @@
 #define SNOOKER_H
 
 #include <string>
-#include <python3.6m/Python.h>
+#include <python3.8/Python.h>
 
 class snooker{
 public:

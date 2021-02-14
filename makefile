@@ -5,10 +5,11 @@ OBJECTS =  main.cpp snooker.cpp
 EXEC = ast.out                                                      
 
 # The flags to use for compilation                                    
-FLAGS = -Wall -lpython3.6m -Irapidjson                                                         
+
+FLAGS = -Wall -I/usr/include/python3.8                                                        
 # The code compiler to use for compilation                            
 CC = g++                                                              
 
 # Perform action on all object files (May or may not exist)           
 all: $(OBJECTS)                                                       
-	$(CC) $(FLAGS) -o $(EXEC) $(OBJECTS)
+	$(CC) $(FLAGS) -o $(EXEC) $(OBJECTS) -lpython3.8
