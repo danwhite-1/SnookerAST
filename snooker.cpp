@@ -1,4 +1,4 @@
-#include </home/daniel/Documents/SnookerAST/snooker.h>
+#include </home/daniel/CLionProjects/SnookerAST/snooker.h>
 #include <iostream>
 
 snooker::snooker()
@@ -15,7 +15,6 @@ snooker::~snooker()
 std::string snooker::getItemFromJSON(std::string _data, const char* item)
 {
 	const char* data = _data.c_str();
-	Py_Initialize();
 
 	PyObject *pName, *pModule, *pValue;	
 
@@ -48,16 +47,12 @@ std::string snooker::getItemFromJSON(std::string _data, const char* item)
 	}
 	
 	PyErr_PrintEx(0);
-	Py_Finalize();
 
 	return "Well, Shit";
 }
 
 std::string snooker::getDataFromAPI(const char* url)
 {
-	//std::string url = "http://api.snooker.org/?e=398";
-	Py_Initialize();
-
 	PyObject *pName, *pModule, *pValue;	
 
 	//In order for import to work $PYTHONPATH = directory of file you want
@@ -76,7 +71,7 @@ std::string snooker::getDataFromAPI(const char* url)
 			pValue = PyObject_CallObject(pFunc, tup);
 			std::string cValue = PyUnicode_AsUTF8(pValue);
 			cValue = cValue.substr(1,cValue.length() - 2);
-			Py_Finalize();
+			//Py_Finalize();
 			//std::cout << cValue.c_str();
 			//return "Hello";
 			return cValue;
@@ -94,7 +89,6 @@ std::string snooker::getDataFromAPI(const char* url)
 	}
 	
 	PyErr_PrintEx(0);
-	Py_Finalize();
 
 	return "Well, shit";
 }
