@@ -30,3 +30,7 @@ sites
 *.exe
 *.out
 *.appe
+
+# Pycache
+*.pyc
+*.pyo
