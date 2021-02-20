@@ -1,4 +1,4 @@
-#include </home/daniel/CLionProjects/SnookerAST/snooker.h>
+#include </home/daniel/SnookerAST/snooker.h>
 #include <iostream>
 
 int main(){
