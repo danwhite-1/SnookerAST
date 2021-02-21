@@ -56,7 +56,6 @@ std::string snooker::getDataFromAPI(const char* url)
 	PyObject *pName, *pModule, *pValue;	
 
 	//In order for import to work $PYTHONPATH = directory of file you want
-	//Pass in "snooker" as argv[1] when executing
 	pName = PyUnicode_FromString("snooker");
 	pModule = PyImport_Import(pName);
 
@@ -71,9 +70,6 @@ std::string snooker::getDataFromAPI(const char* url)
 			pValue = PyObject_CallObject(pFunc, tup);
 			std::string cValue = PyUnicode_AsUTF8(pValue);
 			cValue = cValue.substr(1,cValue.length() - 2);
-			//Py_Finalize();
-			//std::cout << cValue.c_str();
-			//return "Hello";
 			return cValue;
 		}
 		else
@@ -92,3 +88,53 @@ std::string snooker::getDataFromAPI(const char* url)
 
 	return "Well, shit";
 }
+
+double *snooker::getASTFromMatch(const char* url)
+{
+	std::cout << "Got this far -1";
+	PyObject *pName, *pModule, *pValue;
+	
+	//In order for import to work $PYTHONPATH = directory of snooker.py file
+	pName = PyUnicode_FromString("snooker");
+	pModule = PyImport_Import(pName);
+
+	std::cout << "Got this far 0";
+
+	if ( pModule )
+	{
+		std::cout << "Got this far 1";
+		PyObject* pFunc = PyObject_GetAttrString(pModule, "getASTFromMatch");
+		std::cout << "Got this far 2";
+		if ( pFunc && PyCallable_Check(pFunc) )
+		{
+			PyObject* tup = PyTuple_New(1);
+			PyObject* py_url = PyUnicode_FromString(url);
+			PyTuple_SetItem(tup, 0, py_url);
+			pValue = PyObject_CallObject(pFunc, tup);
+			std::string cValue = PyUnicode_AsUTF8(pValue);
+
+			int colon_pos = cValue.find(':');
+			double ast_p1 = stof(cValue.substr(0, colon_pos));
+			double ast_p2 = stof(cValue.substr(colon_pos+1));
+			double cValue_ret[2] = {ast_p1, ast_p2};
+			
+			std::cout << "cValue[0] = " << cValue_ret[0] << std::endl;
+			std::cout << "cValue[1] = " << cValue_ret[1] << std::endl;
+
+			return cValue_ret;
+		}
+		else
+		{
+			std::cout << "Something gone wrong";
+			PyErr_PrintEx(0);
+		}
+	}
+	else
+	{
+		std::cout << "Something else went wrong";
+		PyErr_PrintEx(0);
+	}
+	
+	PyErr_PrintEx(0);
+}
+

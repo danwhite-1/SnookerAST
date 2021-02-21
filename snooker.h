@@ -10,6 +10,7 @@ public:
 	~snooker();
 	std::string getItemFromJSON(std::string data, const char* item);
 	std::string getDataFromAPI(const char* url);
+	double *getASTFromMatch(const char* url);
 private:
 
 
