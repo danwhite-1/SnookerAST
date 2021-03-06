@@ -42,6 +42,6 @@ def getASTFromMatch(url):
 
     return_str = ast_p1 + ":" + ast_p2
 
-    print(return_str)
+    #print(return_str)
 
     return return_str

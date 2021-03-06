@@ -34,3 +34,7 @@ sites
 # Pycache
 *.pyc
 *.pyo
+
+# Other Stuff
+.vscode/*
+.idea/*
