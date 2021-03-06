@@ -1,5 +1,5 @@
-#include </home/daniel/SnookerAST/snookerUtils.h>
-#include </home/daniel/SnookerAST/snookerMatch.h>
+#include </home/daniel/SnookerAST/include/snookerUtils.h>
+#include </home/daniel/SnookerAST/include/snookerMatch.h>
 #include <iostream>
 
 int main(){
@@ -11,9 +11,7 @@ int main(){
 
 	//std::cout << "Tournament Name: " << tournamentName << std::endl;
 
-	snookerMatch sMatch;
-	std::cout << "Got this far 0\n";
-	
+	snookerMatch sMatch;	
 	double player1_ast = sMatch.getASTFromMatch("https://livescores.worldsnookerdata.com/Matches/Result/14156/765410/betvictor-european-masters-2020", 1);
 	double player2_ast = sMatch.getASTFromMatch("https://livescores.worldsnookerdata.com/Matches/Result/14156/765410/betvictor-european-masters-2020", 2);
 

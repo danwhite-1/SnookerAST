@@ -2,7 +2,7 @@
 #define SNOOKERMATCH_H
 
 #include <string>
-#include </home/daniel/SnookerAST/snookerUtils.h>
+#include </home/daniel/SnookerAST/include/snookerUtils.h>
 #include <python3.8/Python.h>
 
 class snookerMatch

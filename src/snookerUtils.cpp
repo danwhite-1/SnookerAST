@@ -1,4 +1,4 @@
-#include </home/daniel/SnookerAST/snookerUtils.h>
+#include </home/daniel/SnookerAST/include/snookerUtils.h>
 #include <iostream>
 
 snookerUtils::snookerUtils()

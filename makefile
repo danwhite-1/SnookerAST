@@ -1,5 +1,5 @@
 # Object files to either reference or create                          
-OBJECTS =  main.cpp snookerUtils.cpp snookerMatch.cpp        
+OBJECTS =  src/main.cpp src/snookerUtils.cpp src/snookerMatch.cpp        
 
 # The execuoable file that will be created at the end                 
 EXEC = ast.out                                                      
