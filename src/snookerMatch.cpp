@@ -9,7 +9,6 @@ snookerMatch::snookerMatch()
 snookerMatch::~snookerMatch()
 {
     //Destructor - needs to do something.
-
 }
 
 double snookerMatch::getASTFromMatch(const char* url, int player)

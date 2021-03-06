@@ -20,6 +20,4 @@ private:
 	int eventID;
 	int wstID;
 };
-
-
 #endif

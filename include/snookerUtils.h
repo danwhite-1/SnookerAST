@@ -12,6 +12,4 @@ public:
 	static std::string getDataFromAPI(const char* url);
 private:
 };
-
-
 #endif
