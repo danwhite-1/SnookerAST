@@ -1,7 +1,6 @@
-* Set up for Version Control
-* Split into header and src files
-
-* Pass actual urls to getRequest()
-* Set up getAST() though py API
-
-* Investigate cPyInstance from PyHelper.hpp
+* Create snookerEvent class
+* Use snookerEvent object to create valie URL for getASTFromMatch()
+* Change getASTFromMatch() so it only has to be called once
+* Create snookerPlayer class
+* Change AST to type std::string
+* Investigate creating UI to give user ability to select a match to view

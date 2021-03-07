@@ -7,7 +7,7 @@ import json
 
 def getRequest(url):
     #Making the request
-
+    #print(url) #for debugging
     res = requests.get(url)
 
     resList = []
@@ -19,20 +19,21 @@ def getRequest(url):
     resList.pop(0)
     resList.pop(-1)
 
+    #print(res.text) #for debugging
     return res.text
 
 def getItemFromJSON(JSON, item): 
     dataJSON = json.loads(JSON)
     if dataJSON[item]:
-        return dataJSON[item]
+        return str(dataJSON[item]) #Need to explicitly return as str, to prevent IDs being cast as int
     else:
         return "Item not in JSON"
-    return JSON
 
-def getASTFromMatch(url):
+def getASTFromMatch(url): #Would be good to add a check for not found - index == -1
     #url = 'http://livescores.worldsnookerdata.com/Matches/Result/14178/780441'
 
     r = requests.get(url)
+    #print(r.text)
 
     ast_p1_index = r.text.find('<p class="score score-player1 score-ast score-ast-left text-right">') + 67
     ast_p1 = r.text[ast_p1_index:ast_p1_index+4]

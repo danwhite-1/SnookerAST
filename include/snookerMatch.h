@@ -7,17 +7,20 @@
 
 class snookerMatch
 {
-public:
+	public:
 	snookerMatch();
+	snookerMatch(std::string url);
 	~snookerMatch();
-	double getASTFromMatch(const char* url, int player);
-private:
-	int player1ID;
-	int player2ID;
-	int Player1Score;
-	int player2Score;
+	void initMatchInfo(std::string url);
+	std::string outputAllData();
+	double getASTFromMatch(const char* url, PLAYER player);
+	
+	private:
+	std::string url;
+	std::string player1ID, player2ID;
+	std::string player1Score, player2Score; //Declared as string to reduce risk of type error
     double player1AST, player2AST;
-	int eventID;
-	int wstID;
+	std::string eventID;
+	std::string wstID;
 };
 #endif

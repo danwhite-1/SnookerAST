@@ -31,7 +31,6 @@ std::string snookerUtils::getItemFromJSON(std::string _data, const char* item)
 			PyTuple_SetItem(tup, 1, PyUnicode_FromString(item));
 			pValue = PyObject_CallObject(pFunc, tup);
 			std::string cValue = PyUnicode_AsUTF8(pValue);
-			Py_Finalize();
 			return cValue.c_str();
 		}
 		else

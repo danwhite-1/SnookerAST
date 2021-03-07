@@ -11,12 +11,42 @@ snookerMatch::~snookerMatch()
     //Destructor - needs to do something.
 }
 
-double snookerMatch::getASTFromMatch(const char* url, int player)
+snookerMatch::snookerMatch(std::string url)
 {
-    if( player != 1 && player != 2){
-		return -1;
-	}
-	
+    initMatchInfo(url);
+	//These need a different URL - should be contructed from wstID and eventID *crosses fingers*
+	//URL = http://livescores.worldsnookerdata.com/Matches/Result/<Event::wstID>/<Match::wstID> Need to create snookerEvent to store Event::wstID
+	std::string wst_url = "https://livescores.worldsnookerdata.com/Matches/Result/14164/815777"; //https is important here
+	getASTFromMatch(wst_url.c_str(), PLAYER::ONE); //This can be improved, need to not call API twice
+	getASTFromMatch(wst_url.c_str(), PLAYER::TWO);
+}
+
+void snookerMatch::initMatchInfo(std::string url)
+{
+	std::string match_info = snookerUtils::getDataFromAPI(url.c_str());
+	player1ID = snookerUtils::getItemFromJSON(match_info, "Player1ID");
+	player2ID = snookerUtils::getItemFromJSON(match_info, "Player2ID");
+	player1Score = snookerUtils::getItemFromJSON(match_info, "Score1");
+	player2Score = snookerUtils::getItemFromJSON(match_info, "Score2");
+	eventID  = snookerUtils::getItemFromJSON(match_info, "EventID");
+	wstID = snookerUtils::getItemFromJSON(match_info, "WorldSnookerID");
+}
+
+std::string snookerMatch::outputAllData()
+{
+	return "player1ID: " + player1ID + 
+	       "\nPlayer2ID: " + player2ID +
+		   "\nPlayer1Score: " + player1Score +
+		   "\nPlayer2Score: " + player2Score +
+		   "\nPlayer1AST: " + std::to_string(player1AST) +
+		   "\nPlayer2AST: " + std::to_string(player2AST) +
+		   "\nEventID: " + eventID +
+		   "\nwstID: " + wstID + 
+		   "\n";
+}
+
+double snookerMatch::getASTFromMatch(const char* url, PLAYER player)
+{	
 	PyObject *pName, *pModule, *pValue;
 	
 	//In order for import to work $PYTHONPATH = directory of snooker.py file
@@ -42,7 +72,7 @@ double snookerMatch::getASTFromMatch(const char* url, int player)
 			//std::cout << "cValue[0] = " << cValue_ret[0] << std::endl;
 			//std::cout << "cValue[1] = " << cValue_ret[1] << std::endl;
 			
-			if(player == 1){
+			if(player == ONE){
                 player1AST = ast_p1;
 				return ast_p1;
 			}
@@ -51,7 +81,6 @@ double snookerMatch::getASTFromMatch(const char* url, int player)
                 player2AST = ast_p2;
 				return ast_p2;
 			}
-			//return cValue;
 		}
 		else
 		{
